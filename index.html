@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Un pequeño universo para ti</title>
+<meta name="description" content="Un universo interactivo construido con cariño, estrella por estrella.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= LIVING BACKGROUND (persists through whole page) ================= -->
+<div class="cosmos" id="cosmos" aria-hidden="true">
+  <div class="stars-layer" id="starsLayer"></div>
+  <div class="nebula nebula--one"></div>
+  <div class="nebula nebula--two"></div>
+
+  <div class="neptune-wrap">
+    <div class="neptune" id="neptune" tabindex="0" role="button" aria-label="Neptuno. Tócalo para descubrir un mensaje.">
+      <div class="neptune__ring"></div>
+      <div class="neptune__body"></div>
+    </div>
+  </div>
+
+  <div class="moon" id="moon" tabindex="0" role="button" aria-label="La luna. Tócala para descubrir un mensaje."></div>
+
+  <svg class="constellation" id="constellation" viewBox="0 0 400 260" aria-hidden="true">
+    <g id="constellationLines" class="constellation__lines"></g>
+    <g id="constellationStars" class="constellation__stars"></g>
+  </svg>
+
+  <div class="clouds-layer" id="cloudsLayer"></div>
+
+  <svg class="mountains" viewBox="0 0 1600 260" preserveAspectRatio="none" aria-hidden="true">
+    <polygon points="0,260 0,150 220,60 430,170 650,40 900,180 1100,90 1300,170 1600,110 1600,260" class="mountains__far"></polygon>
+    <polygon points="0,260 0,200 300,120 560,210 820,110 1080,220 1360,140 1600,200 1600,260" class="mountains__near"></polygon>
+  </svg>
+
+  <div class="firefly-layer" id="fireflyLayer"></div>
+
+  <!-- autumn foliage corners -->
+  <svg class="branch branch--tl" viewBox="0 0 300 300" aria-hidden="true"><path d="M0,0 C40,40 60,90 40,150 C25,195 60,230 30,290" class="branch__line"/></svg>
+  <svg class="branch branch--br" viewBox="0 0 300 300" aria-hidden="true"><path d="M300,300 C260,260 240,210 260,150 C275,105 240,70 270,10" class="branch__line"/></svg>
+
+  <div class="leaf-layer" id="leafLayer"></div>
+
+  <!-- river & shoreline scene -->
+  <div class="shore">
+    <svg class="river" viewBox="0 0 1600 260" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,60 C400,120 1200,10 1600,90 L1600,260 L0,260 Z" class="river__water"></path>
+      <path d="M0,60 C400,120 1200,10 1600,90" class="river__shimmer"></path>
+    </svg>
+
+    <div class="tree tree--left" tabindex="0" role="button" aria-label="Un árbol de otoño. Tócalo para descubrir un mensaje." id="treeLeft">
+      <svg viewBox="0 0 160 260" aria-hidden="true">
+        <path d="M80,260 L78,150" class="tree__trunk"/>
+        <path d="M78,180 C40,150 20,120 30,90 M78,160 C120,140 140,110 130,80 M78,140 C60,110 55,80 75,55" class="tree__branch"/>
+        <circle cx="35" cy="82" r="26" class="tree__crown crown--a"/>
+        <circle cx="70" cy="55" r="30" class="tree__crown crown--b"/>
+        <circle cx="120" cy="72" r="24" class="tree__crown crown--c"/>
+      </svg>
+    </div>
+
+    <div class="lantern" id="lantern" tabindex="0" role="button" aria-label="Un farol encendido. Tócalo para descubrir un mensaje.">
+      <div class="lantern__glow"></div>
+      <div class="lantern__body"></div>
+    </div>
+
+    <div class="fox fox--sitting" id="foxSitting" tabindex="0" role="button" aria-label="Un zorro observando el cielo. Tócalo para descubrir un mensaje.">
+      <svg viewBox="0 0 140 130" aria-hidden="true">
+        <path d="M70,128 C30,128 14,96 20,68 C24,48 14,34 22,16 C30,2 44,10 46,26 C54,18 86,18 94,26 C96,10 110,2 118,16 C126,34 116,48 120,68 C126,96 110,128 70,128 Z" class="fox__body"/>
+        <path d="M30,20 L44,32 L26,40 Z" class="fox__ear"/>
+        <path d="M110,20 L96,32 L114,40 Z" class="fox__ear"/>
+        <ellipse cx="70" cy="90" rx="20" ry="26" class="fox__chest"/>
+      </svg>
+    </div>
+
+    <div class="fox fox--curled" id="foxCurled" tabindex="0" role="button" aria-label="Un zorro dormido junto a su cría. Tócalo para descubrir un mensaje.">
+      <svg viewBox="0 0 180 110" aria-hidden="true">
+        <path d="M20,80 C0,50 30,15 70,15 C120,15 160,45 150,80 C140,105 100,100 85,90 C65,102 30,102 20,80 Z" class="fox__body"/>
+        <path d="M18,78 C10,66 12,52 22,44 L34,58 Z" class="fox__tail"/>
+      </svg>
+    </div>
+
+    <div class="fox fox--kit" id="foxKit" tabindex="0" role="button" aria-label="Un pequeño zorro. Tócalo para descubrir un mensaje.">
+      <svg viewBox="0 0 90 70" aria-hidden="true">
+        <path d="M14,60 C0,40 16,14 45,14 C74,14 90,36 80,56 C72,72 48,68 40,60 C30,68 20,68 14,60 Z" class="fox__body"/>
+      </svg>
+    </div>
+
+    <div class="flower-cluster" id="flowerCluster" tabindex="0" role="button" aria-label="Flores silvestres de otoño. Tócalas para descubrir un mensaje.">
+      <span class="flower"></span><span class="flower"></span><span class="flower"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MUSIC PLAYER ================= -->
+<div class="player" id="player" aria-label="Reproductor de música">
+  <button class="player__toggle" id="playerToggle" aria-label="Minimizar o expandir el reproductor" aria-expanded="true">
+    <span class="player__toggle-icon">▾</span>
+  </button>
+  <div class="player__inner" id="playerInner">
+    <div class="player__cover" id="playerCover" aria-hidden="true"></div>
+    <div class="player__meta">
+      <p class="player__title" id="playerTitle">TE AMO</p>
+      <p class="player__artist" id="playerArtist">Sebas</p>
+      <div class="player__seek">
+        <span class="player__time" id="playerCurrent">0:00</span>
+        <input type="range" id="playerRange" class="player__range" min="0" max="100" value="0" aria-label="Progreso de la canción">
+        <span class="player__time" id="playerDuration">0:00</span>
+      </div>
+    </div>
+    <div class="player__controls">
+      <button class="player__btn" id="playerPrev" aria-label="Canción anterior">⏮</button>
+      <button class="player__btn player__btn--main" id="playerPlay" aria-label="Reproducir">▶</button>
+      <button class="player__btn" id="playerNext" aria-label="Siguiente canción">⏭</button>
+      <label class="player__volume">
+        <span aria-hidden="true">🔊</span>
+        <input type="range" id="playerVolume" min="0" max="100" value="70" aria-label="Volumen">
+      </label>
+    </div>
+  </div>
+  <audio id="audio" preload="none"></audio>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero">
+  <div class="hero__content">
+    <p class="hero__eyebrow">un pequeño universo, construido estrella por estrella</p>
+    <h1 class="hero__title">Bienvenida a<br>nuestro universo</h1>
+    <p class="hero__subtitle">Cada estrella guarda un pedacito de lo que siento por ti. Tócalas, muévete despacio, y encuentra lo que dejé escondido para ti.</p>
+    <button class="hero__cta" id="startJourney">Comenzar el viaje</button>
+  </div>
+  <div class="hero__hint" aria-hidden="true">desliza despacio ↓</div>
+</section>
+
+<!-- ================= LETTER ================= -->
+<main>
+<section class="letter-section" id="letterSection">
+  <article class="letter" id="letter">
+    <div class="letter__ornament" aria-hidden="true">✦</div>
+    <p>Te amo por todo lo que eres. Te admiro por todo lo que has pasado y por lo fuerte y valiente que eres. Me encanta tu forma de ser. Amo cuando pasamos tiempo juntos y, sin darnos cuenta, ya estamos madrugando.</p>
+    <p>Eres magnífica para mis ojos de mortal, porque eres una diosa que cayó en este mundo.</p>
+    <p class="letter__emph">Tenerte a ti es tenerlo todo.</p>
+    <p>Te juro que ya gané en esta vida con el simple hecho de poder intercambiar palabras contigo.</p>
+    <p>Ahora quiero, deseo y anhelo seguir pasando tiempo contigo, conocerte aún más para escribir un libro acerca de lo magnífica que eres.</p>
+    <p>Tienes esa magia para hacerme sonrojar.</p>
+    <p>Tú eres mi lugar seguro, donde puedo ser yo mismo.</p>
+    <p>Eres especial para este chico.</p>
+    <p>Quiero amarte lo más que se puede y apreciar cada parte de tu belleza.</p>
+    <p>Y te recordarte todos los días que eres la chica más hermosa.</p>
+    <div class="letter__ornament" aria-hidden="true">♥</div>
+  </article>
+</section>
+
+<!-- ================= EXPLORATION FOOTER GUIDE ================= -->
+<section class="guide" aria-label="Guía de exploración">
+  <div class="guide__item">
+    <span class="guide__icon" aria-hidden="true">✦</span>
+    <p></p>
+  </div>
+  <div class="guide__item">
+    <span class="guide__icon" aria-hidden="true">✎</span>
+    <p></p>
+  </div>
+  <div class="guide__item">
+    <span class="guide__icon" aria-hidden="true">★</span>
+    <p id="discoveryCount">0 de 14 estrellas encontradas</p>
+  </div>
+  <div class="guide__item">
+    <span class="guide__icon" aria-hidden="true">♪</span>
+    <p></p>
+  </div>
+  <div class="guide__item">
+    <span class="guide__icon" aria-hidden="true">♥</span>
+    <p></p>
+  </div>
+</section>
+</main>
+
+<!-- ================= FLOATING MESSAGE LAYER ================= -->
+<div class="message-layer" id="messageLayer" aria-live="polite"></div>
+
+<!-- ================= FINAL DISCOVERY MODAL ================= -->
+<div class="finale" id="finale" role="dialog" aria-modal="true" aria-labelledby="finaleTitle" hidden>
+  <div class="finale__card">
+    <p class="finale__stars" aria-hidden="true">✦ ✦ ✦</p>
+    <h2 id="finaleTitle">Gracias por recorrer este pequeño universo que construí para ti.</h2>
+    <p>Mira el cielo: ahí quedará, siempre, la constelación que armamos juntos.</p>
+    <button class="finale__close" id="finaleClose">Quedarme un poco más aquí</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
